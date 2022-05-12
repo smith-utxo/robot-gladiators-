@@ -69,7 +69,7 @@ var fight = function(enemyName) {
     }
   } // end of while loop
 }; // end of fight function
-debugger; 
+
 var startGame = function() {
   // reset player stats
   playerHealth = 100; 
@@ -89,11 +89,18 @@ var startGame = function() {
     // reset enemyHealth before starting new fight
       enemyHealth = 50;
 
-    // use debugger to pause script from running and check what's going on at that moment in the code
-    // debugger;
+    
 
     // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
      fight(pickedEnemyName);
+
+     if (playerHealth > 0 && i < enemyNames.length -1){
+       var storeConfirm = window.confirm("The fight is over, visit the store?");
+
+       if (storeConfirm){
+       shop(); 
+     }
+    }
    }
   // if player isn't alive, stop the game
     else {
@@ -102,6 +109,45 @@ var startGame = function() {
    }
   }
 }
+var shop = function() {
+  var shopOption = window.prompt("Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice.");
+  var shopOptionPrompt = shopOption.toLowerCase(); 
+
+  switch (shopOptionPrompt){
+    case 'refill':
+      if (playerMoney >= 7){
+      window.alert("Refilling player's health by 20 for 7 dollars.");
+    playerHealth = playerHealth + 20; 
+    playerMoney = playerMoney - 7; 
+  
+      }
+      else {
+        window.alert("You do not have enough money!");
+      }
+      break; 
+    case 'upgrade':
+      if (playerMoney >= 7){
+       window.alert("Upgrading player's attack by 6 for 7 dollars.");
+    playerAttack = playerAttack + 6; 
+    playerMoney = playerMoney - 7; 
+      }
+      else {
+        window.alert("You do not have enough money!"); 
+      }
+    break; 
+
+    case 'leave': 
+      window.alert("leaving the store"); 
+      break; 
+
+    default: window.alert("you did not pick a valid option. Please try again."); 
+    shop(); 
+    break; 
+  }
+
+
+}
+
 startGame(); 
 
   // function to end the entire game 
@@ -128,3 +174,4 @@ else {
   window.alert("Thank you for playing Robot Gladiators! Come back soon!");
 }
 }
+
